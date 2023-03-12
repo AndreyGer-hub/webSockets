@@ -1,10 +1,6 @@
-// const http = require("http");
-// const express = require( "express");
-// const WebSocket = require( "ws");
-
 import http from "http";
 import express from "express";
-import WebSocket, { WebSocketServer } from "ws";
+import { WebSocketServer } from "ws";
 
 const app = express();
 

@@ -2,31 +2,17 @@ import React, { useState, useCallback, useEffect } from "react";
 import useWebSocket, { ReadyState } from "react-use-websocket";
 import Loader from "./Loader.jsx";
 
-export const WebSocketDemo = ({ loaderId }) => {
-  //Public API that will echo messages sent to it back to the client
-  const [socketUrl, setSocketUrl] = useState("ws://localhost:8999");
-  const [messageHistory, setMessageHistory] = useState([]);
-
-  const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
-
-  useEffect(() => {
-    if (lastMessage !== null) {
-      setMessageHistory((prev) => prev.concat(lastMessage));
-    }
-  }, [lastMessage, setMessageHistory]);
+export const WebSocketLoader = ({ loaderId }) => {
+  const { sendMessage, lastMessage, readyState } = useWebSocket(
+    "ws://localhost:8999"
+  );
 
   const handleClickSendMessage = useCallback(
     () => sendMessage(wrapMessage({ action: "loading", loaderId })),
     [loaderId]
   );
 
-  const connectionStatus = {
-    [ReadyState.CONNECTING]: "Connecting",
-    [ReadyState.OPEN]: "Open",
-    [ReadyState.CLOSING]: "Closing",
-    [ReadyState.CLOSED]: "Closed",
-    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
-  }[readyState];
+  const connectionStatus = countConnectionStatus(readyState);
 
   return (
     <div
@@ -86,4 +72,14 @@ const isForMe = (message, loaderId) => {
 
 const Placeholder = ({ w, h }) => {
   return <div style={{ width: w + "px", height: h + "px" }}></div>;
+};
+
+const countConnectionStatus = (readyState) => {
+  return {
+    [ReadyState.CONNECTING]: "Connecting",
+    [ReadyState.OPEN]: "Open",
+    [ReadyState.CLOSING]: "Closing",
+    [ReadyState.CLOSED]: "Closed",
+    [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+  }[readyState];
 };

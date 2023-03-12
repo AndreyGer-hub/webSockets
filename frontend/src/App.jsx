@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { WebSocketDemo } from "./WebSocketDemo.jsx";
+import { WebSocketLoader } from "./WebSocketLoader.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -13,10 +13,9 @@ function App() {
           flexDirection: "column",
           justifyContent: "center",
         }}
-      > 
-        <WebSocketDemo loaderId={1}/>
-        <WebSocketDemo loaderId={2}/>
-        
+      >
+        <WebSocketLoader loaderId={1} />
+        <WebSocketLoader loaderId={2} />
       </div>
     </div>
   );
