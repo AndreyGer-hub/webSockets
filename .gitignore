@@ -1,0 +1,4 @@
+/backend/package*.json
+/backend/node_modules
+/frontend/package*.json
+/frontend/node_modules
